@@ -1,8 +1,8 @@
 // build.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
-#include <GL/glew.h>
-#include <GL/glfw3.h>
+#include "../src/Renderer/GLRenderer.h"
+
 #include <iostream>
 
 int main()
@@ -56,6 +56,10 @@ int main()
     // Setup viewport size.
     glViewport(0, 0, bufferWidth, bufferHeight);
 
+    GLRenderer renderer;
+    renderer.InitializeRenderer();
+
+
     // Loop until window closed.
     while (!glfwWindowShouldClose(window))
     {
@@ -63,8 +67,14 @@ int main()
         glfwPollEvents();
 
         // Clear Window.
-        glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
+
+        glUseProgram(renderer.m_programID);
+            glBindVertexArray(renderer.m_VAO);
+                glDrawArrays(GL_TRIANGLES, 0, 3);
+            glBindVertexArray(0);
+        glUseProgram(0);
 
         glfwSwapBuffers(window);
     }
