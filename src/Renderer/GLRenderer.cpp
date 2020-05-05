@@ -2,6 +2,11 @@
 
 #include <iostream>
 #include <fstream>
+#include <stdlib.h>
+
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 bool GLRenderer::InitializeRenderer()
 {
@@ -122,6 +127,8 @@ unsigned int GLRenderer::LoadAndCompileShader(const std::string vertShaderFileNa
 	if (result == GL_FALSE)
 	{
 	}
+
+	uniformModel = glGetUniformLocation(m_programID, "model");
 
 	glDeleteShader(vertShader);
 	glDeleteShader(fragShader);

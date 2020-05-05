@@ -6,6 +6,9 @@
 #include <GL/glew.h>
 #include <GL/glfw3.h>
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 class GLRenderer
 {
@@ -20,9 +23,12 @@ public:
 	// Shader Program.
 	unsigned int m_programID;
 	unsigned int m_VAO;
+	unsigned int uniformModel;
+	bool direction = true;
+	float directionIncrement = 0.0001f;
+
 private:
 
-	
 	unsigned int m_VBO;
 	unsigned int m_shader;
 	

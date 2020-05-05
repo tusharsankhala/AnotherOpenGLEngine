@@ -2,6 +2,7 @@
 //
 
 #include "../src/Renderer/GLRenderer.h"
+#include "../src/Utils/MathUtils.h"
 
 #include <iostream>
 
@@ -59,24 +60,50 @@ int main()
     GLRenderer renderer;
     renderer.InitializeRenderer();
 
-
+    float rotationUpdate = 0.0f;
+    float scaleUpdate = 0.0f;
     // Loop until window closed.
     while (!glfwWindowShouldClose(window))
     {
         // Get + Handle user input events.
         glfwPollEvents();
 
+       if (renderer.directionIncrement > 1.0f)
+            renderer.direction = false;
+
+        if (renderer.directionIncrement < -1.0f)
+            renderer.direction = true;
+        
+        if (renderer.direction)
+        {
+            renderer.directionIncrement += 0.01f;
+        }
+        else
+        {
+            renderer.directionIncrement -= 0.01f;
+        }
+       
         // Clear Window.
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
+        glm::mat4 modelMat(1.0f);
+        //modelMat = glm::translate(modelMat, glm::vec3(renderer.directionIncrement, renderer.directionIncrement, 0.0f));
+        modelMat = glm::rotate(modelMat, rotationUpdate * degToRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+        //modelMat = glm::scale(modelMat, scaleUpdate * glm::vec3(2.0f, 2.0f, 1.0f));
+
         glUseProgram(renderer.m_programID);
+        //glUniform1f(renderer.uniformModel, renderer.directionIncrement);
+        glUniformMatrix4fv(renderer.uniformModel, 1, false, glm::value_ptr(modelMat));
             glBindVertexArray(renderer.m_VAO);
                 glDrawArrays(GL_TRIANGLES, 0, 3);
             glBindVertexArray(0);
         glUseProgram(0);
 
         glfwSwapBuffers(window);
+
+        rotationUpdate += 1.0f;
+        scaleUpdate += 0.001f;
     }
 
     return 0;
