@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\Renderer">
-      <UniqueIdentifier>{94e6410d-b0b8-4133-a6d1-c1f1f17a3228}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Renderer">
       <UniqueIdentifier>{0e29f57b-2a81-4208-9d57-1416a693cfff}</UniqueIdentifier>
     </Filter>
@@ -25,29 +22,70 @@
     <Filter Include="Header Files\Utils">
       <UniqueIdentifier>{4ea8e654-b349-4dfc-a833-833b02e89780}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Window">
+      <UniqueIdentifier>{f5c4850b-f1c4-4c33-8f1a-fe4582b4a828}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Window">
+      <UniqueIdentifier>{d8e47e29-cab2-4934-a38f-988524fa56bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Mesh">
+      <UniqueIdentifier>{b4af6692-303f-4634-8628-2747fc900563}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Mesh">
+      <UniqueIdentifier>{e67d5927-602d-45ee-8db9-871e16c6a5b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Shader">
+      <UniqueIdentifier>{250f3f51-8276-4ff7-a841-1e62a15b6c1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shader">
+      <UniqueIdentifier>{ecb4105d-f4ae-4f71-9c4d-d7f84e7de11c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Shaders">
+      <UniqueIdentifier>{ce22d354-989e-4235-a6cc-28e6a49039e3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="..\src\Window\Window.cpp">
+      <Filter>Source Files\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Renderer\GLRenderer.cpp">
-      <Filter>Source Files\Renderer</Filter>
+    <ClCompile Include="..\src\Mesh\Mesh.cpp">
+      <Filter>Source Files\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Shader\Shader.cpp">
+      <Filter>Source Files\Shader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\Renderer\GLRenderer.h">
-      <Filter>Header Files\Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\Utils\MathUtils.h">
       <Filter>Header Files\Utils</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\Window\Window.h">
+      <Filter>Header Files\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Mesh\Mesh.h">
+      <Filter>Header Files\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Shader\Shader.h">
+      <Filter>Header Files\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\src\Shaders\PassThruVert.vert">
-      <Filter>Shaders</Filter>
-    </None>
     <None Include="..\src\Shaders\PassThruFrag.frag">
-      <Filter>Shaders</Filter>
+      <Filter>Resource Files\Shaders</Filter>
     </None>
+    <None Include="..\src\Shaders\PassThruVert.vert">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

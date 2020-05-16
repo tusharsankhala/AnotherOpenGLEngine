@@ -151,16 +151,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\Renderer\GLRenderer.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\Mesh\Mesh.cpp" />
+    <ClCompile Include="..\src\Shader\Shader.cpp" />
+    <ClCompile Include="..\src\Window\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\Renderer\GLRenderer.h" />
+    <ClInclude Include="..\src\Mesh\Mesh.h" />
+    <ClInclude Include="..\src\Shader\Shader.h" />
     <ClInclude Include="..\src\Utils\MathUtils.h" />
+    <ClInclude Include="..\src\Window\Window.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\Shaders\PassThruFrag.frag" />
     <None Include="..\src\Shaders\PassThruVert.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
