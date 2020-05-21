@@ -1,31 +1,19 @@
 #ifndef SHADER_H
 #define SHADER_H
 
-#include <stdlib.h>
+#include "GL/glew.h"
+
 #include <string>
-#include <iostream>
-#include <fstream>
+#include <list>
 
-#include <GL/glew.h>
-
-class Shader
+struct Shader
 {
-public:
-	Shader();
-	~Shader();
-
-	bool LoadShaderFromFile(const std::string& vertShaderFilePath, const std::string& fragShaderFilePath);
-	unsigned int CompileShaderSource(const char* vertShaderCode, GLenum shaderType);
-
-	GLuint GetProjectionLocation();
-	GLuint GetModelLocation();
-	GLuint GetProgramID();
-
-	void UseShader();
-	void ClearShader();
-
-private:
-	GLuint m_programID, m_uniformProjection, m_uniformModel;
+	std::string LoadTextFile(const std::string& filepath);
+	std::string ShaderTypeName(GLuint shader);
+	bool CompileShader(GLuint shader, const std::string& sourcecode);
+	std::string ShaderInfoLog(GLuint shader);
+	bool LinkProgram(GLuint program, const std::list<GLuint>& shaderlist);
+	std::string ProgramInfoLog(GLuint program);
 };
 
-#endif
+#endif // SHADER_H

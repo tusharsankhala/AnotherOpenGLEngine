@@ -1,174 +1,144 @@
 #include "Shader.h"
 
-#include <vector>
+#include <iostream>
+#include <fstream>
 
-Shader::Shader() : m_programID(0), m_uniformProjection(0), m_uniformModel(0)
-{}
 
-bool Shader::LoadShaderFromFile(const std::string& vertShaderFilePath, const std::string& fragShaderFilePath)
+std::string Shader::LoadTextFile(const std::string& filepath)
 {
-	// Reading Vertex shader file.
-	std::fstream vertShaderFile(vertShaderFilePath.c_str(), std::ios::in);
-
-	if (!vertShaderFile.is_open())
-	{
-		std::cerr << "Error opening vertex shader file: " << vertShaderFilePath << "\n";
-		vertShaderFile.close();
-		return false;
-	}
-
-	std::string line;
-	std::string shaderSource;
-	while (!vertShaderFile.eof())
-	{
-		std::getline(vertShaderFile, line);
-		shaderSource.append(line + "\r\n");
-	}
-	
-	unsigned int vertShaderID = CompileShaderSource(shaderSource.c_str(), GL_VERTEX_SHADER);
-	if (vertShaderID < 0)
-	{
-		return false;
-	}
-
-	// Reading fragment shader file.
-	std::fstream fragShaderFile(fragShaderFilePath.c_str(), std::ios::in);
-	if (!fragShaderFile.is_open())
-	{
-		std::cerr << "Error opening fragment shader file: " << fragShaderFilePath << "\n";
-		fragShaderFile.close();
-		return false;
-	}
-
-	line.clear();
-	shaderSource.clear();
-	while (!fragShaderFile.eof())
-	{
-		std::getline(fragShaderFile, line);
-		shaderSource.append(line + "\r\n");
-	}
-
-	unsigned int fragShaderID = CompileShaderSource(shaderSource.c_str(), GL_FRAGMENT_SHADER);
-	if (fragShaderID < 0)
-	{
-		return false;
-	}
-
-	m_programID = glCreateProgram();
-	if (!m_programID)
-	{
-		std::cerr << "Error creating shader program: " << "\n";
-		return false;
-	}
-
-	// Attaching shader.
-	glAttachShader(m_programID, vertShaderID);
-	glAttachShader(m_programID, fragShaderID);
-
-	int result = 0;
-	glLinkProgram(m_programID);
-	glGetProgramiv(m_programID, GL_LINK_STATUS, &result);
-	if (result == GL_FALSE)
-	{
-		GLint maxLength = 0;
-		glGetProgramiv(m_programID, GL_INFO_LOG_LENGTH, &maxLength);
-
-		// The maxLength includes the NULL character
-		std::vector<GLchar> infoLog(maxLength);
-		glGetProgramInfoLog(m_programID, maxLength, &maxLength, &infoLog[0]);
-
-		std::cerr << "Error Linking shader Program: " << "\n";
-		for (auto log : infoLog)
-		{
-			std::cout << log;
-		}
-		return false;
-	}
-
-	glValidateProgram(m_programID);
-	glGetProgramiv(m_programID, GL_VALIDATE_STATUS, &result);
-	if (result == GL_FALSE)
-	{
-		std::cerr << "Error Linking shader Program: " << "\n";
-		return false;
-	}
-
-	m_uniformModel = glGetUniformLocation(m_programID, "model");
-	m_uniformProjection = glGetUniformLocation(m_programID, "projection");
-
-	// Deleting shaders.
-	glDeleteShader(vertShaderID);
-	glDeleteShader(fragShaderID);
-
-	// Closing File.
-	vertShaderFile.close();
-	fragShaderFile.close();
-
-	return true;
+    std::string result(""), line;
+    std::fstream f(filepath.c_str(), std::ios::in);
+    while (f.good())
+    {
+        std::getline(f, line);
+        result += line + '\n';
+    }
+    return result;
 }
 
-unsigned int Shader::CompileShaderSource(const char* shaderCode, GLenum shaderType)
+
+std::string Shader::ShaderTypeName(GLuint shader)
 {
-	unsigned int shaderID = glCreateShader(shaderType);
-	glShaderSource(shaderID, 1, &shaderCode, nullptr);
-	glCompileShader(shaderID);
+    if (glIsShader(shader))
+    {
+        GLint type = 0;
+        glGetShaderiv(shader, GL_SHADER_TYPE, &type);
 
-	int result;
-	glGetShaderiv(shaderID, GL_COMPILE_STATUS, &result);
-	if (result == GL_FALSE)
-	{
-		GLint maxLength = 0;
-		glGetShaderiv(shaderID, GL_INFO_LOG_LENGTH, &maxLength);
+        if (type == GL_VERTEX_SHADER)
+            return "Vertex Shader";
+        if (type == GL_TESS_CONTROL_SHADER)
+            return "Tessellation Control Shader";
+        if (type == GL_TESS_EVALUATION_SHADER)
+            return "Tessellation Evaluation Shader";
+        if (type == GL_GEOMETRY_SHADER)
+            return "Geometry Shader";
+        if (type == GL_FRAGMENT_SHADER)
+            return "Fragment Shader";
+        if (type == GL_COMPUTE_SHADER)
+            return "Compute Shader";
+    }
 
-		std::vector<GLchar> infoLog(maxLength);
-		glGetShaderInfoLog(shaderID, maxLength, &maxLength, &infoLog[0]);
-
-		std::cerr << "Compilation Error in shader: " << "\n";
-		for(auto log : infoLog)
-		{
-			std::cout << log;
-		}
-
-		glDeleteShader(shaderID);
-		return -1;
-	}
-
-	return shaderID;
+    return "invalid shader";
 }
 
-GLuint Shader::GetProjectionLocation()
+
+bool Shader::CompileShader(GLuint shader, const std::string& sourcecode)
 {
-	return m_uniformProjection;
+    if (!glIsShader(shader))
+    {
+        std::cout << "ERROR: shader compilation failed, no valid shader specified" << std::endl;
+        return false;
+    }
+
+    if (sourcecode.empty())
+    {
+        std::cout << "ERROR: shader compilation failed, no source code specified  (" << ShaderTypeName(shader) << ")" << std::endl;
+        return false;
+    }
+
+    const char* sourcearray[] = { sourcecode.c_str() };
+    glShaderSource(shader, 1, sourcearray, NULL);
+    glCompileShader(shader);
+
+    // check compile status
+    GLint status = 0;
+    glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
+
+    // successfully compiled shader
+    if (status == GL_TRUE)
+        return true;
+
+    // show compile errors
+    std::cout << "ERROR: shader compilation failed  (" << ShaderTypeName(shader) << ")" << std::endl << ShaderInfoLog(shader) << std::endl;
+
+    return false;
 }
 
-GLuint Shader::GetModelLocation()
+
+std::string Shader::ShaderInfoLog(GLuint shader)
 {
-	return m_uniformModel;
+    if (glIsShader(shader))
+    {
+        GLint logsize = 0;
+        GLchar infolog[1024] = { 0 };
+        glGetShaderInfoLog(shader, 1024, &logsize, infolog);
+
+        return std::string(infolog);
+    }
+
+    return "invalid shader";
 }
 
-GLuint Shader::GetProgramID()
+
+bool Shader::LinkProgram(GLuint program, const std::list<GLuint>& shaderlist)
 {
-	return m_programID;
+    if (!glIsProgram(program))
+    {
+        std::cout << "ERROR: shader linking failed, no valid program specified" << std::endl;
+        return false;
+    }
+
+    // attach all shaders to the program
+    for (std::list<GLuint>::const_iterator it = shaderlist.begin(); it != shaderlist.end(); it++)
+    {
+        if (glIsShader(*it))
+            glAttachShader(program, *it);
+    }
+
+    // link program
+    glLinkProgram(program);
+
+    // detach all shaders again
+    for (std::list<GLuint>::const_iterator it = shaderlist.begin(); it != shaderlist.end(); it++)
+    {
+        if (glIsShader(*it))
+            glDetachShader(program, *it);
+    }
+
+    GLint status = 0;
+    glGetProgramiv(program, GL_LINK_STATUS, &status);
+
+    // successfully linked program
+    if (status == GL_TRUE)
+        return true;
+
+    // show link errors
+    std::cout << "ERROR: shader linking failed" << std::endl << ProgramInfoLog(program) << std::endl;
+
+    return false;
 }
 
-void Shader::UseShader()
-{
-	glUseProgram(m_programID);
-}
 
-void Shader::ClearShader()
+std::string Shader::ProgramInfoLog(GLuint program)
 {
-	if (m_programID != 0)
-	{
-		glDeleteProgram(m_programID);
-		m_programID = 0;
-	}
+    if (glIsProgram(program))
+    {
+        GLint logsize = 0;
+        GLchar infolog[1024] = { 0 };
+        glGetProgramInfoLog(program, 1024, &logsize, infolog);
 
-	m_uniformProjection = 0;
-	m_uniformModel = 0;
-}
+        return std::string(infolog);
+    }
 
-Shader::~Shader()
-{
-	ClearShader();
+    return "invalid program";
 }

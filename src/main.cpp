@@ -1,103 +1,133 @@
-// build.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
 
-#include "../src/Utils/MathUtils.h"
-#include "Window/Window.h"
-#include "Mesh/Mesh.h"
-#include "Shader/Shader.h"
+#define GLEW_STATIC
+#include "GL/glew.h"
+#include "GL/glfw3.h"
 
 #include <iostream>
-#include <vector>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
 
-int main()
+#include "Window/Graphics.h"
+
+
+using namespace std;
+
+// Main Graphics Object.
+Graphics graphics;
+
+void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
-    const int WIDTH = 800;
-    const int HEIGHT = 600;
-    const std::string windowTitle = "OpenGL Window";
+    graphics.Resize(width, height);
+}
 
-    std::vector<Mesh*> meshList;
 
-    GLRendererWindow window = GLRendererWindow(WIDTH, HEIGHT, windowTitle.c_str());
-    int status = window.Initialize();
-    if (status == -1)
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+    if (key == GLFW_KEY_E && action == GLFW_PRESS)
     {
-        std::cerr << "Window Creation failed" << "\n";
+    }
+}
+
+
+void cursor_position_callback(GLFWwindow* window, double xpos, double ypos)
+{
+}
+
+
+void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
+{
+    if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
+    {
+    }
+}
+
+
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+{
+}
+
+
+void joystick_callback(int joy, int event)
+{
+    if (event == GLFW_CONNECTED)
+    {
+    }
+    else if (event == GLFW_DISCONNECTED)
+    {
+    }
+}
+
+
+int main(int argc, char* argv[])
+{
+    /* Initialize GLFW */
+    if (!glfwInit())
+        return -1;
+
+    /* Create a window and its OpenGL context */
+    bool fullscreen = false;
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    GLFWmonitor* monitor = fullscreen ? glfwGetPrimaryMonitor() : NULL;
+    GLFWwindow* window = glfwCreateWindow(800, 600, "OpenGL", monitor, NULL);
+    if (!window)
+    {
+        glfwTerminate();
         return -1;
     }
-        
-    unsigned int indices[] = {
-        0, 3, 1,
-        1, 3, 2,
-        2, 3, 0,
-        0, 1, 2
-    };
 
-    GLfloat vertices[] =
+    /* Make the window's context current */
+    glfwMakeContextCurrent(window);
+
+    /* Set callback functions */
+    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+    glfwSetKeyCallback(window, key_callback);
+    glfwSetCursorPosCallback(window, cursor_position_callback);
+    glfwSetMouseButtonCallback(window, mouse_button_callback);
+    glfwSetScrollCallback(window, scroll_callback);
+    glfwSetJoystickCallback(joystick_callback);
+
+    /* Initialize GLEW */
+    if (glewInit() != GLEW_OK)
     {
-        -1.0f, -1.0f, 0.0f,
-         0.0f, -1.0f, 1.0f,
-         1.0f, -1.0f, 0.0f,
-         0.0f, 1.0f, 0.0f,
-    };
-
-    Mesh* mesh1 = new Mesh();
-    mesh1->CreateMesh(vertices, indices, 12, 12);
-    meshList.push_back(mesh1);
-
-    float rotationUpdate = 0.0f;
-  
-    // Projection Matrix.
-    glm::mat4 projectionMat = glm::perspective(45.0f, window.GetBufferWidth() / window.GetBufferHeight(), 0.1f, 100.0f);
-
-    Shader* shader = new Shader();
-    bool shaderStatus = shader->LoadShaderFromFile("E:\\GitReposMy\\AnotherOpenGLEngine\\src\\Shaders\\PassThruVert.vert",
-        "E:\\GitReposMy\\AnotherOpenGLEngine\\src\\Shaders\\PassThruFrag.frag");
-
-    GLuint programID = shader->GetProgramID();
-    GLuint uniformModel = 0;
-    GLuint uniformProjection = 0;
-
-    if (!shaderStatus)
-    {
-        std::cerr << "Shader compilation failed, Aborting program" << "\n";
-        return -1;
+        glfwTerminate();
+        return -2;
     }
 
-    // Loop until window closed.
-    while (!window.GetShouldClose())
+    /* Show OpenGL context information */
+    GLContextInfo infos = graphics.GetContextInfos();
+    cout << "OpenGL version: " << infos.Version.Major << "." << infos.Version.Minor << endl;
+    cout << "Driver version: " << infos.Version.Driver << endl;
+    cout << "GLSL version: " << infos.Version.ShadingLanguage << endl;
+    cout << "Vendor: " << infos.Vendor << endl;
+    cout << "Renderer: " << infos.Renderer << endl;
+    
+    /* Initialize graphics subsystem */
+    int width = 0, height = 0;
+    
+    glfwGetFramebufferSize(window, &width, &height);
+    if (!graphics.Initialize(width, height,
+        "..\\src\\Resources\\Shaders\\PassThruVert.vert",
+        "..\\src\\Resources\\Shaders\\PassThruFrag.frag"))
     {
-        // Get + Handle user input events.
+        glfwTerminate();
+        return -3;
+    }
+
+    /* Loop until the user closes the window */
+    while (!glfwWindowShouldClose(window))
+    {
+        /* Render here */
+        graphics.Render();
+
+        /* Swap front and back buffers */
+        glfwSwapBuffers(window);
+
+        /* Poll for and process events */
         glfwPollEvents();
-
-        // Clear Window.
-        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-        shader->UseShader();
-        uniformModel = shader->GetModelLocation();
-        uniformProjection = shader->GetProjectionLocation();
-       
-        glm::mat4 modelMat(1.0f);
-
-        modelMat = glm::translate(modelMat, glm::vec3(0.0f, 0.0f, -5.5f));
-        modelMat = glm::rotate(modelMat, rotationUpdate * degToRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-        modelMat = glm::scale(modelMat, glm::vec3(0.7f, 0.7f, 0.7f));
-
-        meshList[0]->RenderMesh();
-
-        glUseProgram(programID);
-        glUniformMatrix4fv(uniformModel, 1, false, glm::value_ptr(modelMat));
-        glUniformMatrix4fv(uniformProjection, 1, false, glm::value_ptr(projectionMat));
-        
-        glUseProgram(0);
-
-        window.SwapBuffers();
-
-        rotationUpdate += 1.0f;
     }
 
+    graphics.CleanUp();
+
+    glfwTerminate();
     return 0;
 }

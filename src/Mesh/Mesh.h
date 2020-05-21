@@ -3,6 +3,17 @@
 
 #include <gl/glew.h>
 
+#include <glm/glm.hpp>
+
+struct Vertex {
+	glm::vec3 Position;
+
+	Vertex(const glm::vec3& position)
+		: Position(position)
+	{}
+};
+
+
 class Mesh
 {
 public:
