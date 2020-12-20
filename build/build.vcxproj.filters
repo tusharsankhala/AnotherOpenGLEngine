@@ -13,91 +13,39 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Shaders">
-      <UniqueIdentifier>{82d42727-6c61-4014-be4b-d9904c8e79d5}</UniqueIdentifier>
+    <Filter Include="Source Files\Engine">
+      <UniqueIdentifier>{8e872efe-a386-4037-ab10-692a37e2bdfb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Utils">
-      <UniqueIdentifier>{4ea8e654-b349-4dfc-a833-833b02e89780}</UniqueIdentifier>
+    <Filter Include="Header Files\Engine">
+      <UniqueIdentifier>{6ff0ff94-d5aa-47bc-8342-3a3a1a6a9287}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Window">
-      <UniqueIdentifier>{f5c4850b-f1c4-4c33-8f1a-fe4582b4a828}</UniqueIdentifier>
+    <Filter Include="Header Files\Engine\core">
+      <UniqueIdentifier>{d44fc17c-9ad3-469c-96b2-5cdc9223909f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Window">
-      <UniqueIdentifier>{d8e47e29-cab2-4934-a38f-988524fa56bd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Mesh">
-      <UniqueIdentifier>{b4af6692-303f-4634-8628-2747fc900563}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Mesh">
-      <UniqueIdentifier>{e67d5927-602d-45ee-8db9-871e16c6a5b5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Shader">
-      <UniqueIdentifier>{250f3f51-8276-4ff7-a841-1e62a15b6c1f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Shader">
-      <UniqueIdentifier>{ecb4105d-f4ae-4f71-9c4d-d7f84e7de11c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files\Shaders">
-      <UniqueIdentifier>{ce22d354-989e-4235-a6cc-28e6a49039e3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Camera">
-      <UniqueIdentifier>{9bab4ca7-8c1a-462c-91d2-f25c67ca6d6e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Camera">
-      <UniqueIdentifier>{eac392b5-2ac4-4fff-9cfc-0c7b124c2eba}</UniqueIdentifier>
+    <Filter Include="Source Files\Engine\core">
+      <UniqueIdentifier>{4f373da8-0fc0-4470-b610-0e1e8b93492c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Mesh\Mesh.cpp">
-      <Filter>Source Files\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Shader\Shader.cpp">
-      <Filter>Source Files\Shader</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Camera\Camera.cpp">
-      <Filter>Source Files\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Window\Graphics.cpp">
-      <Filter>Source Files\Window</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\src\Utils\MathUtils.h">
-      <Filter>Header Files\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Mesh\Mesh.h">
-      <Filter>Header Files\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Shader\Shader.h">
-      <Filter>Header Files\Shader</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Camera\Camera.h">
-      <Filter>Header Files\Camera</Filter>
+    <ClInclude Include="..\src\Engine\src\Core.h">
+      <Filter>Header Files\Engine\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Timer\Timer.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\src\Engine\src\Application.h">
+      <Filter>Header Files\Engine\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Window\Graphics.h">
-      <Filter>Header Files\Window</Filter>
+    <ClInclude Include="..\src\Engine\src\EntryPoint.h">
+      <Filter>Header Files\Engine\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\RenderEngine.h">
+      <Filter>Header Files\Engine\core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Resource.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\src\Resources\Shaders\PassThruFrag.frag">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
-    <None Include="..\src\Resources\Shaders\PassThruVert.vert">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
+    <ClCompile Include="..\src\Engine\src\Application.cpp">
+      <Filter>Source Files\Engine\core</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

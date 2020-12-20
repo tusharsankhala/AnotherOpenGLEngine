@@ -1,3 +1,9 @@
+# Directiories
+.vs/
+.bin/
+.bin-temp/
+
+# File Types
 *.ipch
 *.db
 *.opendb
@@ -11,3 +17,4 @@
 *.filters
 *.log
 *.txt
+*.user
