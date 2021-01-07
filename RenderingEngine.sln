@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "build\build.vcxproj", "{D23CF79F-7505-4267-B31C-B5C081E823E9}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "build\Engine.vcxproj", "{D23CF79F-7505-4267-B31C-B5C081E823E9}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sandbox", "Sandbox\Sandbox.vcxproj", "{DB2C2A95-FFE6-47FC-BCD6-0ED4A54821EE}"
 	ProjectSection(ProjectDependencies) = postProject

@@ -1,13 +1,13 @@
-#include <RenderEngine.h>
+#include <Engine.h>
 
-class SandBox : public RenderEngine::Application
+class SandBox : public Engine::Application
 {
 public:
 	SandBox() {}
 	~SandBox() {}
 };
 
-RenderEngine::Application* RenderEngine::CreateApplication()
+Engine::Application* Engine::CreateApplication()
 {
 	return new SandBox();
 }

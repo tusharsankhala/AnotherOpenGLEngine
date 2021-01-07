@@ -1,14 +1,14 @@
-#ifndef RENDERENGINE_H
-#define RENDERENGINE_H
+#ifndef ENGINE_H
+#define ENGINE_H
 
-#include <iostream>
+#include "EnginePCH.h"
 
 // For Use by Application.
-#include "Engine/src/Application.h"
+#include "Application.h"
 
 //-----------------------------------
 //------ Entry Point ----------------
-#include "Engine/src/EntryPoint.h"
+#include "EntryPoint.h"
 
 //-----------------------------------
 

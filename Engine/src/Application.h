@@ -2,16 +2,21 @@
 #define APPLICATION_H
 
 #include "Core.h"
+#include "Window/Window.h"
 
-namespace RenderEngine
+namespace Engine
 {
-	class RENDERENGINE_API Application
+	class ENGINE_API Application
 	{
 	public:
 		Application();
 		virtual ~Application();
 
 		void Run();
+
+	private:
+		std::unique_ptr<Window> m_window;
+		bool m_running;
 	};
 
 	// To be defined in client.
