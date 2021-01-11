@@ -46,25 +46,19 @@ namespace Engine
 	class ENGINE_API KeyReleasedEvent : public KeyEvent
 	{
 	public:
-		KeyReleasedEvent(int keyCode, int repeatCount)
-			: KeyEvent(keyCode), m_repeatCount(repeatCount)
+		KeyReleasedEvent(int keyCode)
+			: KeyEvent(keyCode)
 		{}
-
-		inline int GetRepeatCount() const { return m_repeatCount; }
 
 		std::string ToString() const override
 		{
 			std::stringstream ss;
-			ss << "KeyReleasedEvent: " << m_keyCode << " (" << m_repeatCount << " repeats)";
+			ss << "KeyReleasedEvent: " << m_keyCode;
 			return ss.str();
 		}
 
 		EVENT_CLASS_TYPE(KeyReleased)
-
-	private:
-		int m_repeatCount;
 	};
-
 }
 
 #endif

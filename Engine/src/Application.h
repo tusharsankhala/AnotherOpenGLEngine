@@ -4,6 +4,8 @@
 #include "Core.h"
 #include "Window/Window.h"
 
+#include "Event/ApplicationEvent.h"
+
 namespace Engine
 {
 	class ENGINE_API Application
@@ -14,6 +16,14 @@ namespace Engine
 
 		void Run();
 
+		virtual void OnInit() {}
+		virtual void OnShutdown() {}
+		virtual void OnUpdate() {}
+
+		virtual void OnEvent(Event& event);
+	private:
+		bool OnWindowResize(WindowResizeEvent& e);
+		bool OnWindowClose(WindowCloseEvent& e);
 	private:
 		std::unique_ptr<Window> m_window;
 		bool m_running;

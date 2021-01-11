@@ -3,6 +3,8 @@
 
 #ifdef ENGINE_PLATFORM_WINDOWS
 
+#include "Log/Log.h"
+
 extern Engine::Application* Engine::CreateApplication();
 
 int main(int argc, char** argv)
