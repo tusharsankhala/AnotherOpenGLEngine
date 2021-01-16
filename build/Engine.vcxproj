@@ -104,9 +104,9 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>ENGINE_PLATFORM_WINDOWS;ENGINE_BUILD_DLL;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>ENGINE_PLATFORM_WINDOWS;ENGINE_BUILD_DLL;GLFW_INCLUDE_NONE;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)External\GLFW\Include;$(SolutionDir)External\GLEW\Include;$(SolutionDir)External\GLM;$(SolutionDir)Engine\Vendor\spdlog\include;$(SolutionDir)External\GLFW\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)External\GLFW\Include;$(SolutionDir)External\GLAD\Include;$(SolutionDir)External\GLM;$(SolutionDir)Engine\Vendor\spdlog\include;$(SolutionDir)External\GLFW\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeaderFile>EnginePCH.h</PrecompiledHeaderFile>
     </ClCompile>
@@ -145,9 +145,9 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>ENGINE_PLATFORM_WINDOWS;ENGINE_BUILD_DLL;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>ENGINE_PLATFORM_WINDOWS;ENGINE_BUILD_DLL;GLFW_INCLUDE_NONE;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)External\GLFW\Include;$(SolutionDir)External\GLEW\Include;$(SolutionDir)External\GLM;$(SolutionDir)Engine\Vendor\spdlog\include;$(SolutionDir)External\GLFW\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)External\GLFW\Include;$(SolutionDir)External\GLAD\Include;$(SolutionDir)External\GLM;$(SolutionDir)Engine\Vendor\spdlog\include;$(SolutionDir)External\GLFW\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeaderFile>EnginePCH.h</PrecompiledHeaderFile>
     </ClCompile>
@@ -167,6 +167,8 @@
     <ClInclude Include="..\Engine\src\Event\Event.h" />
     <ClInclude Include="..\Engine\src\Event\KeyEvent.h" />
     <ClInclude Include="..\Engine\src\Event\MouseEvent.h" />
+    <ClInclude Include="..\Engine\src\Layer\Layer.h" />
+    <ClInclude Include="..\Engine\src\Layer\LayerStack.h" />
     <ClInclude Include="..\Engine\src\Log\Log.h" />
     <ClInclude Include="..\Engine\src\Engine.h" />
     <ClInclude Include="..\Engine\src\Platform\Windows\WinWindow.h" />
@@ -179,8 +181,14 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="..\Engine\src\Layer\Layer.cpp" />
+    <ClCompile Include="..\Engine\src\Layer\LayerStack.cpp" />
     <ClCompile Include="..\Engine\src\Log\Log.cpp" />
     <ClCompile Include="..\Engine\src\Platform\Windows\WinWindow.cpp" />
+    <ClCompile Include="..\External\GLAD\src\glad.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

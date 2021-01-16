@@ -5,6 +5,7 @@
 
 // For Use by Application.
 #include "Application.h"
+#include "Layer/Layer.h"
 
 //-----------------------------------
 //------ Entry Point ----------------

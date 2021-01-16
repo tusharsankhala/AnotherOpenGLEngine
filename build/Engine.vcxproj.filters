@@ -1,3 +1,115 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\Engine\src\Log\Log.cpp">
+      <Filter>Source\Log</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Engine\src\Application.cpp">
+      <Filter>Source\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Engine\src\Platform\Windows\WinWindow.cpp">
+      <Filter>Source\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Engine\src\EnginePCH.cpp">
+      <Filter>Source\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Engine\src\Layer\Layer.cpp">
+      <Filter>Source\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Engine\src\Layer\LayerStack.cpp">
+      <Filter>Source\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\External\GLAD\src\glad.c">
+      <Filter>Source\Glad</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="..\Engine\src\Core\Core.h">
+      <Filter>Header\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\src\Log\Log.h">
+      <Filter>Header\Log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\src\Event\KeyEvent.h">
+      <Filter>Header\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\src\Event\Event.h">
+      <Filter>Header\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\src\Event\MouseEvent.h">
+      <Filter>Header\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\src\Application.h">
+      <Filter>Header\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\src\Event\ApplicationEvent.h">
+      <Filter>Header\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\src\Window\Window.h">
+      <Filter>Header\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\src\Platform\Windows\WinWindow.h">
+      <Filter>Header\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\src\Engine.h">
+      <Filter>Header\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\src\EnginePCH.h">
+      <Filter>Header\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\src\EntryPoint.h">
+      <Filter>Header\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\src\Layer\Layer.h">
+      <Filter>Header\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\src\Layer\LayerStack.h">
+      <Filter>Header\Layer</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header">
+      <UniqueIdentifier>{3e37adc5-6ec3-4519-849e-ecd1a57a016f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{23443894-f00f-4bd7-9e82-4a49b236ff67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header\Core">
+      <UniqueIdentifier>{b341a9f8-66ff-4b7a-b2a6-da981a318db3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Core">
+      <UniqueIdentifier>{c355dfc0-a412-4022-9ff4-456e090f8186}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header\Log">
+      <UniqueIdentifier>{947e8100-a05f-4384-8245-96b8ed3db77f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Log">
+      <UniqueIdentifier>{8f5a2242-b7a8-4acc-a4db-973183f3ef3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header\Event">
+      <UniqueIdentifier>{c5bed5d7-a292-44f1-9122-b97e31c8f896}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header\Application">
+      <UniqueIdentifier>{830066dd-696f-4986-865f-380dcc2c3628}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Application">
+      <UniqueIdentifier>{fc3073fa-8953-4c2d-b624-58439ca8633c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header\Window">
+      <UniqueIdentifier>{bbf106f9-2e90-40bd-86a1-7cce57388df0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Window">
+      <UniqueIdentifier>{13d1443c-2c32-4b69-b41b-5928ef9bdcb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header\Layer">
+      <UniqueIdentifier>{49ab88b7-9942-4279-9765-8b23a9f810ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Layer">
+      <UniqueIdentifier>{092ca42b-faaf-4893-a543-1a12aed742df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Glad">
+      <UniqueIdentifier>{c56f3024-565c-42a8-ac97-6811b1d5bbf3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
 </Project>
